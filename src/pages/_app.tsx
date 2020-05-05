@@ -32,25 +32,23 @@ const App: React.FC<AppProps> = (props) => {
   }, [])
 
   return (
-    <React.StrictMode>
-      <Router>
-        <Provider store={store}>
-          <ThemeProvider theme={theme}>
-            <Head>
-              <title>Little Todos</title>
-              <meta name="description" content="Simple checklist app" />
-            </Head>
-            <AppLayout>
-              <SnackbarProvider>
-                <PersistGate persistor={persistor} >
-                  <Component {...pageProps} />
-                </PersistGate>
-              </SnackbarProvider>
-            </AppLayout>
-          </ThemeProvider>
-        </Provider>
-      </Router>
-    </React.StrictMode>
+    <Router>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <Head>
+            <title>Little Todos</title>
+            <meta name="description" content="Simple checklist app" />
+          </Head>
+          <AppLayout>
+            <SnackbarProvider>
+              <PersistGate persistor={persistor}>
+                <Component {...pageProps} />
+              </PersistGate>
+            </SnackbarProvider>
+          </AppLayout>
+        </ThemeProvider>
+      </Provider>
+    </Router>
   )
 }
 export default App
