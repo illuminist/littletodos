@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "deploy": "firebase deploy",
     "emulator": "firebase emulators:start",
     "dev": "next dev",
     "build": "next build && next export",

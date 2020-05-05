@@ -30,6 +30,8 @@ import { useFirebaseUser } from 'firebase-app/auth'
 import usePopoverState from 'hooks/usePopoverState'
 import settings from 'store/settings'
 import { sleep } from 'utils/helpers'
+import ExternalLink from 'components/ExternalLink'
+import GithubLogo from 'components/icons/GithubLogo'
 
 export type UserPopMenuProps = {
   classes?: object
@@ -128,19 +130,14 @@ export const UserPopMenu: React.FC<UserPopMenuProps> = (
         data-href="/terms-and-conditions">
         <ListItemText inset>Terms and Conditions</ListItemText>
       </MenuItem>
-      {/* <MenuItem component={Link} to="/info" replace>
+      <MenuItem
+        component={ExternalLink}
+        href="https://github.com/illuminist/littletodos">
         <ListItemIcon>
-          <InfoIcon />
+          <GithubLogo />
         </ListItemIcon>
-        <ListItemText>
-          <Trans i18nKey="infomationMenu">Infomation</Trans>
-        </ListItemText>
+        <ListItemText>Github Repository</ListItemText>
       </MenuItem>
-      <MenuItem onClick={handleCallAchiver}>
-        <ListItemText inset>
-          Call Archiver
-        </ListItemText>
-      </MenuItem> */}
       {!user || user.isAnonymous ? null : (
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
