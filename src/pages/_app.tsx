@@ -38,6 +38,28 @@ const App: React.FC<AppProps> = (props) => {
           <Head>
             <title>Little Todos</title>
             <meta name="description" content="Simple checklist app" />
+            <meta property="og:url" content="https://littletodos.web.app/" />
+            <meta property="og:type" content="website" />
+            <meta property="og:title" content="Little Todos" />
+            <meta
+              property="og:description"
+              content="Simple checklist web app"
+            />
+            <meta
+              property="og:image"
+              content="https://littletodos.web.app/littletodospreview.png"
+            />
+            {theme.palette?.primary && (
+              <meta
+                name="theme-color"
+                content={
+                  'main' in theme.palette.primary
+                    ? theme.palette.primary.main
+                    : theme.palette.primary[500]
+                }
+              />
+            )}
+            <link rel="apple-touch-icon" href="/logo-192.png" />
           </Head>
           <AppLayout>
             <SnackbarProvider>
