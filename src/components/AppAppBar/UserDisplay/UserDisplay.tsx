@@ -100,7 +100,7 @@ export const UserDisplay: React.FC<UserDisplayProps> = (
       </Hidden>
       <Hidden mdUp>
         <IconButton onClick={handleOpen} color="inherit">
-          {user ? <UserAvatar uid={user.uid} /> : <PersonOutlineIcon />}
+          {user ? <UserAvatar uid={user.email || user.uid} /> : <PersonOutlineIcon />}
         </IconButton>
       </Hidden>
       <div className={classes.anchorEl} ref={anchorEl} />

@@ -13,7 +13,6 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { Theme } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 import HomeIcon from '@material-ui/icons/Home'
-import NoSsr from '@material-ui/core/NoSsr'
 import UserDisplay from './UserDisplay'
 import SearchBox from 'components/SearchBox'
 
@@ -104,7 +103,7 @@ export const AppAppBar: React.FC<Props> = (props) => {
               <Typography variant="h5">Little Todos</Typography>
             )}
             <Box flexGrow={1} />
-            {user && (
+            {user && matchHome && (
               <SearchBox
                 className={classes.menuItem}
                 variant="outlined"

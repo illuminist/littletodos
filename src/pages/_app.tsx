@@ -42,7 +42,7 @@ const App: React.FC<AppProps> = (props) => {
             </Head>
             <AppLayout>
               <SnackbarProvider>
-                <PersistGate persistor={persistor} loading={<AppLoading />}>
+                <PersistGate persistor={persistor} >
                   <Component {...pageProps} />
                 </PersistGate>
               </SnackbarProvider>

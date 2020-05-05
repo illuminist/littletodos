@@ -45,9 +45,7 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = (props) => {
         Terms and Conditions, which is accessible at Todo unless otherwise
         defined in this Privacy Policy.
       </Typography>
-      <Typography variant="body1" paragraph>
-        <Typography variant="h5">Information Collection and Use</Typography>
-      </Typography>
+      <Typography variant="h5">Information Collection and Use</Typography>
       <Typography variant="body1" paragraph>
         For a better experience, while using our Service, I may require you to
         provide us with certain personally identifiable information, including
@@ -60,19 +58,17 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = (props) => {
       </Typography>
       <Typography variant="body1" paragraph>
         Link to privacy policy of third party service providers used by the app
-        <ul>
-          <li>
-            <ExternalLink
-              component={Link}
-              href="https://firebase.google.com/policies/analytics">
-              Google Analytics for Firebase
-            </ExternalLink>
-          </li>
-        </ul>
       </Typography>
-      <Typography variant="body1" paragraph>
-        <Typography variant="h5">Log Data</Typography>
+      <Typography component="ul" variant="body1" paragraph>
+        <li>
+          <ExternalLink
+            component={Link}
+            href="https://firebase.google.com/policies/analytics">
+            Google Analytics for Firebase
+          </ExternalLink>
+        </li>
       </Typography>
+      <Typography variant="h5">Log Data</Typography>
       <Typography variant="body1" paragraph>
         I want to inform you that whenever you use my Service, in a case of an
         error in the app I collect data and information (through third party
@@ -82,9 +78,7 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = (props) => {
         utilizing my Service, the time and date of your use of the Service, and
         other statistics.
       </Typography>
-      <Typography variant="body1" paragraph>
-        <Typography variant="h5">Cookies</Typography>
-      </Typography>
+      <Typography variant="h5">Cookies</Typography>
       <Typography variant="body1" paragraph>
         Cookies are files with a small amount of data that are commonly used as
         anonymous unique identifiers. These are sent to your browser from the
@@ -98,26 +92,24 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = (props) => {
         your device. If you choose to refuse our cookies, you may not be able to
         use some portions of this Service.
       </Typography>
-      <Typography variant="body1" paragraph>
-        <Typography variant="h5">Service Providers</Typography>
-      </Typography>
+      <Typography variant="h5">Service Providers</Typography>
       <Typography variant="body1" paragraph>
         I may employ third-party companies and individuals due to the following
         reasons:
-        <ul>
-          <li>To facilitate our Service;</li>
-          <li>To provide the Service on our behalf;</li>
-          <li>To perform Service-related services; or</li>
-          <li>To assist us in analyzing how our Service is used.</li>
-        </ul>
+      </Typography>
+      <Typography component="ul" variant="body1" paragraph>
+        <li>To facilitate our Service;</li>
+        <li>To provide the Service on our behalf;</li>
+        <li>To perform Service-related services; or</li>
+        <li>To assist us in analyzing how our Service is used.</li>
+      </Typography>
+      <Typography variant="body1" paragraph>
         I want to inform users of this Service that these third parties have
         access to your Personal Information. The reason is to perform the tasks
         assigned to them on our behalf. However, they are obligated not to
         disclose or use the information for any other purpose.
       </Typography>
-      <Typography variant="body1" paragraph>
-        <Typography variant="h5">Security</Typography>
-      </Typography>
+      <Typography variant="h5">Security</Typography>
       <Typography variant="body1" paragraph>
         I value your trust in providing us your Personal Information, thus we
         are striving to use commercially acceptable means of protecting it. But
@@ -125,9 +117,7 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = (props) => {
         electronic storage is 100% secure and reliable, and I cannot guarantee
         its absolute security.
       </Typography>
-      <Typography variant="body1" paragraph>
-        <Typography variant="h5">Links to Other Sites</Typography>
-      </Typography>
+      <Typography variant="h5">Links to Other Sites</Typography>
       <Typography variant="body1" paragraph>
         This Service may contain links to other sites. If you click on a
         third-party link, you will be directed to that site. Note that these
@@ -136,9 +126,7 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = (props) => {
         and assume no responsibility for the content, privacy policies, or
         practices of any third-party sites or services.
       </Typography>
-      <Typography variant="body1" paragraph>
-        <Typography variant="h5">Children’s Privacy</Typography>
-      </Typography>
+      <Typography variant="h5">Children’s Privacy</Typography>
       <Typography variant="body1" paragraph>
         These Services do not address anyone under the age of 13. I do not
         knowingly collect personally identifiable information from children
@@ -148,9 +136,7 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = (props) => {
         provided us with personal information, please contact me so that I will
         be able to do necessary actions.
       </Typography>
-      <Typography variant="body1" paragraph>
-        <Typography variant="h5">Changes to This Privacy Policy</Typography>
-      </Typography>
+      <Typography variant="h5">Changes to This Privacy Policy</Typography>
       <Typography variant="body1" paragraph>
         I may update our Privacy Policy from time to time. Thus, you are advised
         to review this page periodically for any changes. I will notify you of
@@ -159,9 +145,7 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = (props) => {
       <Typography variant="body1" paragraph>
         This policy is effective as of 2020-05-04
       </Typography>
-      <Typography variant="body1" paragraph>
-        <Typography variant="h5">Contact Us</Typography>
-      </Typography>
+      <Typography variant="h5">Contact Us</Typography>
       <Typography variant="body1" paragraph>
         If you have any questions or suggestions about my Privacy Policy, do not
         hesitate to contact me at{' '}

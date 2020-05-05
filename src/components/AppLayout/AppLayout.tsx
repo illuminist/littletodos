@@ -2,8 +2,6 @@ import _ from 'lodash'
 import clsx from 'clsx'
 import * as React from 'react'
 import useStyles from './styles'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
 import AppAppBar from 'components/AppAppBar'
 
 export interface AppLayoutProps {

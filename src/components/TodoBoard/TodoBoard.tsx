@@ -2,7 +2,6 @@ import clsx from 'clsx'
 import * as React from 'react'
 import useStyles from './styles'
 import AddButton from 'components/AddButton'
-import useTodoCards from 'connectors/useTodoCards'
 import useUserTodoOrder from 'connectors/useUserTodoOrder'
 import TodoCard from 'components/TodoCard'
 import {
@@ -32,10 +31,8 @@ export const TodoBoard: React.FC<TodoBoardProps> = (props) => {
   const { className } = props
 
   const userTodos = useUserTodoOrder().useData()
-  const connector = useTodoCards()
   const dispatch = useDispatch()
   const optimisticOrdered = useSelector((state) => state.optimistic.cardOrder)
-  const data = connector.useData()
 
   const refMap = useRefMap<HTMLDivElement>()
   const cardControlMap = useRefMap<{
