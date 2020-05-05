@@ -20,13 +20,20 @@ export const deleteCard = async (listId: string) => {
     .collection('userTodos')
     .doc(auth.currentUser.uid)
   const todoRef = firestore.collection('todos').doc(listId)
-  await firestore.runTransaction(async (t) => {
-    t.update(userTodoRef, {
+  await Promise.all([
+    userTodoRef.update({
       ordered: firebase.firestore.FieldValue.arrayRemove(listId),
       lastRemovedId: listId,
-    })
-    t.delete(todoRef)
-  })
+    }),
+    todoRef.delete(),
+  ])
+  // await firestore.runTransaction(async (t) => {
+  //   t.update(userTodoRef, {
+  //     ordered: firebase.firestore.FieldValue.arrayRemove(listId),
+  //     lastRemovedId: listId,
+  //   })
+  //   t.delete(todoRef)
+  // })
 }
 
 const initialTodo: Todo = {
