@@ -17,7 +17,7 @@ const rearrangeCardClear = createAction('rearrangeCardClear')
 export const rearrangeCardThunk = (
   dropResult: DropResult,
   idList: string[],
-): AppThunk => async (dispatch, getState) => {
+): AppThunk => async (dispatch) => {
   const newIdList = [...idList]
   newIdList.splice(dropResult.source.index, 1)
   newIdList.splice(dropResult.destination!.index, 0, dropResult.draggableId)
@@ -26,6 +26,7 @@ export const rearrangeCardThunk = (
     listId: dropResult.draggableId,
     sourceIndex: dropResult.source.index,
     targetIndex: dropResult.destination!.index,
+    ordered: idList,
   })
   await sleep(100)
   dispatch(clearOptimistic())
@@ -71,8 +72,10 @@ export const rearrangeThunk = (
       todoId: dropResult.draggableId,
       sourceId: dropResult.source.droppableId,
       sourceIndex: dropResult.source.index,
+      sourceList: sourceList,
       targetId: dropResult.destination.droppableId,
       targetIndex: dropResult.destination.index,
+      targetList: targetList,
     })
     await sleep(100)
     dispatch(clearOptimistic())

@@ -13,12 +13,13 @@ export interface ColorMemuProps {
   className?: string
   label?: string
   value: string
+  onOpen?: () => void
   onChange: (color: string) => void
 }
 
 export const ColorMenu = React.forwardRef<any, ColorMemuProps>((props, ref) => {
   const classes = useStyles(props)
-  const { className, label, value, onChange } = props
+  const { className, label, value, onChange, onOpen } = props
 
   const [menuOpen, setMenuOpen] = React.useState(false)
 
@@ -26,7 +27,10 @@ export const ColorMenu = React.forwardRef<any, ColorMemuProps>((props, ref) => {
     onChange(color)
   }
 
-  const openDialog = React.useCallback(() => setMenuOpen(true), [])
+  const openDialog = React.useCallback(() => {
+    setMenuOpen(true)
+    onOpen && onOpen()
+  }, [])
   const closeDialog = React.useCallback(() => setMenuOpen(false), [])
   return (
     <>

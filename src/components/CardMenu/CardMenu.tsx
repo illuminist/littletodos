@@ -37,9 +37,10 @@ export const CardMenu: React.FC<CardMenuProps> = (props) => {
       <ColorMenu
         label="Primary color"
         value={todoData?.colorPrimary}
-        onChange={(color) =>
+        onChange={(color) => {
+          handleClose()
           updateCard(listId, { colorPrimary: color === 'common' ? '' : color })
-        }
+        }}
       />
       <MenuItem
         onClick={() => {

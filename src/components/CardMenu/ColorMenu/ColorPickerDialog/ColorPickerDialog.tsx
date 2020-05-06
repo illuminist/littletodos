@@ -34,6 +34,8 @@ export const ColorPickerDialog: React.FC<ColorPickerDialogProps> = (props) => {
   const handleSelect = React.useCallback(
     (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       setColor(e.currentTarget.value)
+      onAccept(e.currentTarget.value)
+      restProp.onClose && restProp.onClose({}, 'escapeKeyDown')
     },
     [],
   )
@@ -75,7 +77,6 @@ export const ColorPickerDialog: React.FC<ColorPickerDialogProps> = (props) => {
           onClick={(e) => props.onClose && props.onClose(e, 'escapeKeyDown')}>
           Close
         </Button>
-        <Button onClick={handleAccept}>Select color</Button>
       </DialogActions>
     </Dialog>
   )

@@ -26,9 +26,9 @@ let inited = false
 const initFirestore = () => {
   if (!inited) {
     inited = true
+    const firestore = firebase.firestore()
     if (process.env.NODE_ENV !== 'production') {
       // Note that the Firebase Web SDK must connect to the WebChannel port
-      const firestore = firebase.firestore()
       firestore.settings({
         host:
           process.env.FIRESTORE_EMULATOR_HOST ||
@@ -36,8 +36,8 @@ const initFirestore = () => {
           'localhost:8080',
         ssl: false,
       })
-      firestore.enablePersistence()
     }
+    process.browser && firestore.enablePersistence({ synchronizeTabs: true })
   }
 }
 

@@ -31,6 +31,9 @@ export const TodoBoard: React.FC<TodoBoardProps> = (props) => {
   const { className } = props
 
   const userTodos = useUserTodoOrder().useData()
+  const snap = useUserTodoOrder().useSnap()
+
+  const ready = snap?.metadata.fromCache && !userTodos
   const dispatch = useDispatch()
   const optimisticOrdered = useSelector((state) => state.optimistic.cardOrder)
 
@@ -83,7 +86,7 @@ export const TodoBoard: React.FC<TodoBoardProps> = (props) => {
         cardEl.scrollIntoView()
         cardControl.focus()
       }
-    }, 100)
+    }, 400)
   }, [])
 
   return (

@@ -12,6 +12,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { ThemeProvider } from 'theme/ThemeProvider'
 import { AppProps } from 'next/app'
 import AppLoading from 'components/AppLoading'
+import useOnlineStatus from 'firebase-app/useOnlineStatus'
 import { SnackbarProvider } from 'notistack'
 import Head from 'next/head'
 
@@ -30,6 +31,8 @@ const App: React.FC<AppProps> = (props) => {
       jssStyles.parentElement?.removeChild(jssStyles)
     }
   }, [])
+
+  useOnlineStatus()
 
   return (
     <Router>
@@ -74,3 +77,6 @@ const App: React.FC<AppProps> = (props) => {
   )
 }
 export default App
+
+type Bar = { a: number }
+const foo = { fooKeyA: {} as Bar, fooKeyB: {} as Bar }

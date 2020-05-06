@@ -20,7 +20,7 @@ export const deleteCard = async (listId: string) => {
     .collection('userTodos')
     .doc(auth.currentUser.uid)
   const todoRef = firestore.collection('todos').doc(listId)
-  await Promise.all([
+  Promise.all([
     userTodoRef.update({
       ordered: firebase.firestore.FieldValue.arrayRemove(listId),
       lastRemovedId: listId,
@@ -48,7 +48,7 @@ const initialCard: TodoList = {
   ownerId: '',
   sharing: 'private',
   note: '',
-  createdDate: (firebase.firestore.FieldValue.serverTimestamp() as unknown) as Date,
+  createdDate: new Date(),
   title: '',
   todoData: {},
   todoIds: [],
@@ -64,18 +64,31 @@ export const addCard = async () => {
     .collection('userTodos')
     .doc(auth.currentUser.uid)
 
-  const todosRef = firestore.collection('todos')
-  const todoRef = await todosRef.add({
+  const todoRef = firestore.collection('todos').doc()
+  todoRef.set({
     ...initialCard,
     ownerId: auth.currentUser.uid,
   })
 
-  await userTodoRef.set(
+  userTodoRef.set(
     {
       ordered: firebase.firestore.FieldValue.arrayUnion(todoRef.id),
     },
     { merge: true },
   )
+
+  // const todosRef = firestore.collection('todos')
+  // const todoRef = await todosRef.add({
+  //   ...initialCard,
+  //   ownerId: auth.currentUser.uid,
+  // })
+
+  // await userTodoRef.set(
+  //   {
+  //     ordered: firebase.firestore.FieldValue.arrayUnion(todoRef.id),
+  //   },
+  //   { merge: true },
+  // )
   return todoRef.id
 }
 
@@ -104,7 +117,7 @@ export const editTodo = (
 export const deleteTodo = async (listId: string, todoId: string) => {
   const firestore = firebase.firestore()
   const ref = firestore.collection('todos').doc(listId)
-  await ref.update({
+  ref.update({
     ordered: firebase.firestore.FieldValue.arrayRemove(todoId),
     ['todoData.' + todoId]: firebase.firestore.FieldValue.delete(),
   })
@@ -116,8 +129,9 @@ export const rearrangeCard = async (args: {
   listId: string
   sourceIndex: number
   targetIndex: number
+  ordered: string[]
 }) => {
-  const { listId, sourceIndex, targetIndex } = args
+  const { listId, sourceIndex, targetIndex, ordered } = args
   const auth = firebase.auth()
   if (!auth.currentUser) return
 
@@ -127,25 +141,31 @@ export const rearrangeCard = async (args: {
       .collection('userTodos')
       .doc(auth.currentUser.uid)
 
-    await firestore.runTransaction(async (t) => {
-      const targetSnap = await t.get(userTodoRef)
-      const targetData = targetSnap.data() as UserTodo
-      const idList = targetData.ordered
-      idList.splice(sourceIndex, 1)
-      idList.splice(targetIndex, 0, listId)
-      t.update(userTodoRef, { ordered: idList })
-    })
+    const idList = [...ordered]
+    idList.splice(sourceIndex, 1)
+    idList.splice(targetIndex, 0, listId)
+    userTodoRef.update({ ordered: idList })
   }
 }
 
 export const rearrangeTodo = async (args: {
   sourceId: string
   sourceIndex: number
+  sourceList: TodoList
   targetId: string
   targetIndex: number
+  targetList: TodoList
   todoId: string
 }) => {
-  const { todoId, sourceId, sourceIndex, targetId, targetIndex } = args
+  const {
+    todoId,
+    sourceId,
+    sourceIndex,
+    sourceList,
+    targetId,
+    targetIndex,
+    targetList,
+  } = args
 
   if (
     targetId &&
@@ -158,37 +178,24 @@ export const rearrangeTodo = async (args: {
 
     if (targetId === sourceId) {
       let idList: string[]
-      await firestore.runTransaction(async (t) => {
-        const targetSnap = await t.get(targetRef)
-        const targetData = targetSnap.data() as TodoList
-        idList = targetData.todoIds
-        idList.splice(sourceIndex, 1)
-        idList.splice(targetIndex, 0, todoId)
-        t.update(targetRef, { todoIds: idList })
-      })
+      idList = targetList.todoIds
+      idList.splice(sourceIndex, 1)
+      idList.splice(targetIndex, 0, todoId)
+      targetRef.update({ todoIds: idList })
       await sleep(1000)
     } else {
-      await firestore.runTransaction(async (t) => {
-        const [sourceSnap, targetSnap] = await Promise.all([
-          t.get(sourceRef),
-          t.get(targetRef),
-        ])
-
-        const sourceData = sourceSnap.data() as TodoList
-        const sourceIdList = sourceData.todoIds
-        sourceIdList.splice(sourceIndex, 1)
-        const targetData = targetSnap.data() as TodoList
-        const targetIdList = targetData.todoIds
-        targetIdList.splice(targetIndex, 0, todoId)
-        const itemData = sourceData.todoData[todoId]
-        t.update(sourceRef, {
-          todoIds: sourceIdList,
-          [`todoData.${todoId}`]: firebase.firestore.FieldValue.delete(),
-        })
-        t.update(targetRef, {
-          todoIds: targetIdList,
-          [`todoData.${todoId}`]: itemData,
-        })
+      const sourceIdList = sourceList.todoIds
+      sourceIdList.splice(sourceIndex, 1)
+      const targetIdList = targetList.todoIds
+      targetIdList.splice(targetIndex, 0, todoId)
+      const itemData = sourceList.todoData[todoId]
+      sourceRef.update({
+        todoIds: sourceIdList,
+        [`todoData.${todoId}`]: firebase.firestore.FieldValue.delete(),
+      })
+      targetRef.update({
+        todoIds: targetIdList,
+        [`todoData.${todoId}`]: itemData,
       })
       await sleep(1000)
     }
